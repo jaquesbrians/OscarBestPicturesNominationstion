@@ -13,7 +13,7 @@ def choose_movie():
 
     url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
     querystring = {
-        # "title": movie_title,
+        #"title": movie_title,
         "title": "Die Hard with a Vengeance",
         "country": "us",
         "show_type": "movie"
@@ -30,25 +30,49 @@ def choose_movie():
         print("Error fetching data from the API.")
     else:
 
-        data = response.json()
-        results = data  # data is already a list of results
-        if results:
-            first_result = results[0]
-            title = first_result["title"]
-            services = first_result.get("streamingOptions", {}).get("us", {})
+        #data = response.json()
+        #results = data  # data is already a list of results
+        #if results:
+            #first_result = results[0]
+            #title = first_result["title"]
+            #services = first_result.get("streamingOptions", {}).get("us", {})
             
-            print(f"\n🎬 Found: {title}")
+            #print(f"\n🎬 Found: {title}")
 
-            for service in services:
-                service_name = service.get("name")
-                link = service.get("link")
-                webbrowser.open(link) 
-        else:
-            print("No streaming information found for this movie.")
+            #or service in services:
+                #service_name = service.get("name")
+                #link = service.get("link")
+                #webbrowser.open(link) 
 
-        return chosen_line
+
+            data = response.json()
+            results = data  # already a list
+            if results:
+                first_result = results[0]
+                title = first_result["title"]
+                services = first_result.get("streamingOptions", {}).get("us", {})
+
+                html_lines = [f"<h2>🎬 {title}</h2><ul>"]
+
+                for service in services:
+                    name = service.get("name", "Unknown Service")
+                    link = service.get("link", "#")
+                    html_lines.append(f'<li><a href="{link}" target="_blank">{name}</a></li>')
+
+                html_lines.append("</ul>")
+                html_content = "\n".join(html_lines)
+
+                # Save to HTML file and open in browser
+                with open("movie_links.html", "w", encoding="utf-8") as f:
+                    f.write(html_content)
+
+                webbrowser.open("movie_links.html")
+            else:
+                print("No streaming information found for this movie.")
 
     return chosen_line
+
+    #return chosen_line
 
 def movie_selected():
     # Remove selected movie from the unwatched list
