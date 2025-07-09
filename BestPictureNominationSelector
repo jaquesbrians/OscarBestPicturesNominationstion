@@ -85,33 +85,44 @@ def movie_selected():
     with open(used_file, 'a') as file:
         file.write(chosen_line + '\n')
 
+def run_movie_selection():
+    auto_open = auto_open_var.get()
+    choose_movie(auto_open)
+
 # File paths
 source_file = 'OscarBestPicturesNotWatched.txt'
 used_file = 'OscarBestPicturesWatched.txt'
 
 root = tk.Tk()
-root.withdraw()
+root.title("Oscar Best Picture Nominated Selector")
+tk.Label(root, text="Automatically open streaming links in browser?").pack(pady=10)
+auto_open_var = tk.BooleanVar()
+tk.Checkbutton(root, text="hello", variable=auto_open_var).pack()
+tk.Button(root, text="Goodbye", command=run_movie_selection).pack(pady=20)
+
+root.mainloop
+#root.withdraw()
 
 # Open the Nomination list of Movies not watched yet
-with open(source_file, 'r') as file:
-    lines = [line.strip() for line in file if line.strip()] 
+#with open(source_file, 'r') as file:
+    #lines = [line.strip() for line in file if line.strip()] 
 
 # Check if list is empty
-if not lines:
-    print("The source file is empty.")
-else:
+#if not lines:
+    #print("The source file is empty.")
+#else:
 
-    chosen_line = None 
-    chosen_line = choose_movie()
+    #chosen_line = None 
+    #chosen_line = choose_movie()
 
-    whileBool = True
-    while whileBool:
-        result = messagebox.askyesno("Movie Selected", f"{chosen_line}")
+    #whileBool = True
+    #while whileBool:
+        #result = messagebox.askyesno("Movie Selected", f"{chosen_line}")
 
-        if result:
-            whileBool = False
-            print("You chose YES")
+        #if result:
+           # whileBool = False
+            #print("You chose YES")
             # movie_selected()
-        else:
-            print("You chose NO")
-            chosen_line = choose_movie()
+        #else:
+            #print("You chose NO")
+            #chosen_line = choose_movie()
