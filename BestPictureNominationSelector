@@ -109,8 +109,15 @@ else:
     x = int((screen_width / 2) - (window_width / 2))
     y = int((screen_height / 2) - (window_height / 2) - 50)
     root.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    root.configure(bg="lightblue")
-    tk.Label(root, text="Automatically open streaming links in browser?").pack(pady=10)
+    root.configure(bg="#ffcc99")
+
+    tk.Label(
+        root, 
+        text="Automatically open streaming links in browser?",
+        bg="#ffcc99",
+        font=("Arial", 20, "bold") 
+        ).pack(pady=10)
+    
     auto_open_var = tk.BooleanVar()
     tk.Checkbutton(root, text="hello", variable=auto_open_var).pack()
     #tk.Button(root, text="Goodbye", command=run_movie_selection).pack(pady=20)
