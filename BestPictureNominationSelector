@@ -24,7 +24,7 @@ def open_all_movie_links_manually(title, services):
     webbrowser.open("movie_links.html")
     return
 
-def choose_movie():
+def choose_movie(auto_open):
     chosen_line = random.choice(lines)
     print(f"Movie Selected: {chosen_line}")
 
@@ -59,7 +59,7 @@ def choose_movie():
 
             print(f"\n🎬 Found: {title}")
 
-            open_all_movie_links_manually(title, services)
+            #open_all_movie_links_manually(title, services)
             #open_all_movie_links_automatically(services)
 
             
@@ -93,6 +93,8 @@ def run_movie_selection():
 source_file = 'OscarBestPicturesNotWatched.txt'
 used_file = 'OscarBestPicturesWatched.txt'
 
+chosen_line = None 
+
 with open(source_file, 'r') as file:
     lines = [line.strip() for line in file if line.strip()] 
 
@@ -113,14 +115,31 @@ else:
 
     tk.Label(
         root, 
-        text="Automatically open streaming links in browser?",
+        text="Randomly Find Best Picture Nominated Movie",
         bg="#ffcc99",
         font=("Arial", 20, "bold") 
         ).pack(pady=10)
     
     auto_open_var = tk.BooleanVar()
-    tk.Checkbutton(root, text="hello", variable=auto_open_var).pack()
-    #tk.Button(root, text="Goodbye", command=run_movie_selection).pack(pady=20)
+    #tk.Checkbutton(root, text="hello", variable=auto_open_var).pack()
+    #tk.Button(root, text="Choose Movie", command=run_movie_selection).pack(pady=20)
+
+    button = tk.Button(
+        root,
+        text="Choose Movie",
+        command=run_movie_selection,
+        font=("Arial", 20, "bold"),
+        width=20,     # number of characters wide
+        height=2,     # number of text lines tall
+        padx=10,      # internal padding (horizontal)
+        pady=10       # internal padding (vertical)
+    )
+    button.pack(pady=20)
+
+
+
+
+
     print("Are we here 2")
 
     root.mainloop()
