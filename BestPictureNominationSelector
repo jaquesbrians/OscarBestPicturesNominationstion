@@ -4,6 +4,8 @@ from tkinter import messagebox
 import requests
 import webbrowser
 
+movie_title = None
+
 def open_all_movie_links_automatically(services):
     for service in services:
         service_name = service.get("name")
@@ -24,7 +26,41 @@ def open_all_movie_links_manually(title, services):
     webbrowser.open("movie_links.html")
     return
 
+def find_possible_streaming_places_function(movie_title):
+    url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
+    querystring = {
+        "title": movie_title,
+        #"title": "Men in Black",
+        "country": "us",
+        "show_type": "movie"
+   }
+
+    headers = {
+	"x-rapidapi-key": "7f84ac6968msh506e9250e00e425p122fc7jsn8dccfbd2494f",
+	"x-rapidapi-host": "streaming-availability.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+    print(response.status_code) 
+    if response.status_code != 200:
+        print("Error fetching data from the API.")
+    else:
+        data = response.json()
+        results = data
+        if results:
+            first_result = results[0]
+            title = first_result["title"]
+            services = first_result.get("streamingOptions", {}).get("us", {})
+            print(f"\n🎬 Found: {title}")
+
+            #open_all_movie_links_manually(title, services)
+            open_all_movie_links_automatically(services)    
+        else:
+           print("No streaming information found for this movie.")
+    
+
 def choose_movie(auto_open):
+    global movie_title
     chosen_line = random.choice(lines)
     print(f"Movie Selected: {chosen_line}")
 
@@ -33,51 +69,15 @@ def choose_movie(auto_open):
     movie_year = movie_info_line[1]
     movie_producer = movie_info_line[2]
 
-    global movie_selected_title
-    global movie_selected_year_made
-    global movie_selected_producer
-    movie_selected_title.config(text = f"Movie Selected: {movie_title}")
-    movie_selected_year_made.config(text = f"Year Made: {movie_year}")
+    movie_selected_title.config(text = movie_title)
+    movie_selected_year_made.config(text = movie_year)
     movie_selected_producer.config(text = f"Produced By: {movie_producer}")
 
     print(movie_title) 
     print(movie_year)
     print(movie_producer)
 
-   # url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
-   # querystring = {
-        #"title": movie_title,
-        #"title": "Sorcerer",
-       # "country": "us",
-       # "show_type": "movie"
-   # }
-
-    #headers = {
-	#"x-rapidapi-key": "7f84ac6968msh506e9250e00e425p122fc7jsn8dccfbd2494f",
-	#"x-rapidapi-host": "streaming-availability.p.rapidapi.com"
-    #}
-
-    #response = requests.get(url, headers=headers, params=querystring)
-   # print(response.status_code) 
-    #if response.status_code != 200:
-        #print("Error fetching data from the API.")
-    #else:
-
-        #data = response.json()
-        #results = data
-        #if results:
-            #first_result = results[0]
-            #title = first_result["title"]
-            #services = first_result.get("streamingOptions", {}).get("us", {})
-
-            #print(f"\n🎬 Found: {title}")
-
-            #open_all_movie_links_manually(title, services)
-            #open_all_movie_links_automatically(services)
-
-            
-       # else:
-           # print("No streaming information found for this movie.")
+    find_possible_streaming_places_button.pack()
 
     return chosen_line
 
@@ -114,10 +114,9 @@ with open(source_file, 'r') as file:
 if not lines:
     print("The source file is empty.")
 else:
-    print("Are we here 1")
     root = tk.Tk()
     root.title("Oscar Best Picture Nominated Selector")
-    window_width = 800
+    window_width = 1200
     window_height = 800
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -134,7 +133,6 @@ else:
         ).pack(pady=10)
     
     auto_open_var = tk.BooleanVar()
-    #tk.Checkbutton(root, text="hello", variable=auto_open_var).pack()
 
     button = tk.Button(
         root,
@@ -146,70 +144,54 @@ else:
         padx=10,      # internal padding (horizontal)
         pady=10       # internal padding (vertical)
     )
-    button.pack(pady=20)
+    button.pack(pady=10)
 
     movie_selected_title = tk.Label(
         root,
         text="Movie Selected : ",
+        bg="#ffcc99",
         font=("Arial", 20, "bold"),
-        width=20,     
+        width=100,     
         height=2,     
         padx=10,      
-        pady=10 
+        pady=5 
     )
-    movie_selected_title.pack(pady=20)
+    movie_selected_title.pack(pady=5)
 
     movie_selected_year_made = tk.Label(
         root,
         text="Year Made : ",
         bg="#ffcc99",
         font=("Arial", 20, "bold"),
-        width=20,     
+        width=100,     
         height=2,     
         padx=10,      
-        pady=10       
+        pady=5       
     )
-    movie_selected_year_made.pack(pady=10)
+    movie_selected_year_made.pack(pady=5)
 
     movie_selected_producer = tk.Label(
         root,
         text="Produced By : ",
+        bg="#ffcc99",
         font=("Arial", 20, "bold"),
-        width=20,     
+        width=100,     
         height=2,     
         padx=10,      
-        pady=10     
+        pady=5    
     )
-    movie_selected_producer.pack(pady=20)
+    movie_selected_producer.pack(pady=5)
 
-    print("Are we here 2")
+    find_possible_streaming_places_button = tk.Button(
+        root,
+        text="Find Possible Streaming Places",
+        command = lambda: find_possible_streaming_places_function(movie_title),
+        font=("Arial", 20, "bold"),
+        width=30,     
+        height=2,     
+        padx=10,      
+        pady=10      
+    )
+    find_possible_streaming_places_button.pack_forget()
 
     root.mainloop()
-
-
-
-#root.withdraw()
-
-# Open the Nomination list of Movies not watched yet
-#with open(source_file, 'r') as file:
-    #lines = [line.strip() for line in file if line.strip()] 
-
-# Check if list is empty
-#if not lines:
-    #print("The source file is empty.")
-#else:
-
-    #chosen_line = None 
-    #chosen_line = choose_movie()
-
-    #whileBool = True
-    #while whileBool:
-        #result = messagebox.askyesno("Movie Selected", f"{chosen_line}")
-
-        #if result:
-           # whileBool = False
-            #print("You chose YES")
-            # movie_selected()
-        #else:
-            #print("You chose NO")
-            #chosen_line = choose_movie()
