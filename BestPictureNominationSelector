@@ -28,43 +28,56 @@ def choose_movie(auto_open):
     chosen_line = random.choice(lines)
     print(f"Movie Selected: {chosen_line}")
 
-    movie_title = chosen_line.split('\t')[0]
+    movie_info_line = [part for part in chosen_line.split('\t') if part.strip() != '']
+    movie_title = movie_info_line[0]
+    movie_year = movie_info_line[1]
+    movie_producer = movie_info_line[2]
+
+    global movie_selected_title
+    global movie_selected_year_made
+    global movie_selected_producer
+    movie_selected_title.config(text = f"Movie Selected: {movie_title}")
+    movie_selected_year_made.config(text = f"Year Made: {movie_year}")
+    movie_selected_producer.config(text = f"Produced By: {movie_producer}")
+
     print(movie_title) 
+    print(movie_year)
+    print(movie_producer)
 
-    url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
-    querystring = {
-        "title": movie_title,
+   # url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
+   # querystring = {
+        #"title": movie_title,
         #"title": "Sorcerer",
-        "country": "us",
-        "show_type": "movie"
-    }
+       # "country": "us",
+       # "show_type": "movie"
+   # }
 
-    headers = {
-	"x-rapidapi-key": "7f84ac6968msh506e9250e00e425p122fc7jsn8dccfbd2494f",
-	"x-rapidapi-host": "streaming-availability.p.rapidapi.com"
-    }
+    #headers = {
+	#"x-rapidapi-key": "7f84ac6968msh506e9250e00e425p122fc7jsn8dccfbd2494f",
+	#"x-rapidapi-host": "streaming-availability.p.rapidapi.com"
+    #}
 
-    response = requests.get(url, headers=headers, params=querystring)
-    print(response.status_code) 
-    if response.status_code != 200:
-        print("Error fetching data from the API.")
-    else:
+    #response = requests.get(url, headers=headers, params=querystring)
+   # print(response.status_code) 
+    #if response.status_code != 200:
+        #print("Error fetching data from the API.")
+    #else:
 
-        data = response.json()
-        results = data
-        if results:
-            first_result = results[0]
-            title = first_result["title"]
-            services = first_result.get("streamingOptions", {}).get("us", {})
+        #data = response.json()
+        #results = data
+        #if results:
+            #first_result = results[0]
+            #title = first_result["title"]
+            #services = first_result.get("streamingOptions", {}).get("us", {})
 
-            print(f"\n🎬 Found: {title}")
+            #print(f"\n🎬 Found: {title}")
 
             #open_all_movie_links_manually(title, services)
             #open_all_movie_links_automatically(services)
 
             
-        else:
-            print("No streaming information found for this movie.")
+       # else:
+           # print("No streaming information found for this movie.")
 
     return chosen_line
 
@@ -122,7 +135,6 @@ else:
     
     auto_open_var = tk.BooleanVar()
     #tk.Checkbutton(root, text="hello", variable=auto_open_var).pack()
-    #tk.Button(root, text="Choose Movie", command=run_movie_selection).pack(pady=20)
 
     button = tk.Button(
         root,
@@ -136,13 +148,46 @@ else:
     )
     button.pack(pady=20)
 
+    movie_selected_title = tk.Label(
+        root,
+        text="Movie Selected : ",
+        font=("Arial", 20, "bold"),
+        width=20,     
+        height=2,     
+        padx=10,      
+        pady=10 
+    )
+    movie_selected_title.pack(pady=20)
 
+    movie_selected_year_made = tk.Label(
+        root,
+        text="Year Made : ",
+        bg="#ffcc99",
+        font=("Arial", 20, "bold"),
+        width=20,     
+        height=2,     
+        padx=10,      
+        pady=10       
+    )
+    movie_selected_year_made.pack(pady=10)
 
-
+    movie_selected_producer = tk.Label(
+        root,
+        text="Produced By : ",
+        font=("Arial", 20, "bold"),
+        width=20,     
+        height=2,     
+        padx=10,      
+        pady=10     
+    )
+    movie_selected_producer.pack(pady=20)
 
     print("Are we here 2")
 
     root.mainloop()
+
+
+
 #root.withdraw()
 
 # Open the Nomination list of Movies not watched yet
