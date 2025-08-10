@@ -4,7 +4,11 @@ from tkinter import messagebox
 import requests
 import webbrowser
 
+# File paths
+source_file = 'OscarBestPicturesNotWatched.txt'
+used_file = 'OscarBestPicturesWatched.txt'
 movie_title = None
+chosen_line = None
 
 def open_all_movie_links_automatically(services):
     for service in services:
@@ -60,6 +64,7 @@ def find_possible_streaming_places_function(movie_title):
 
 def choose_movie(auto_open):
     global movie_title
+    global chosen_line
     chosen_line = random.choice(lines)
     print(f"Movie Selected: {chosen_line}")
 
@@ -81,13 +86,13 @@ def choose_movie(auto_open):
 
     return chosen_line
 
-def movie_selected():
+def select_and_save_movie():
     # Remove selected movie from the unwatched list
+    global chosen_line
     if chosen_line in lines:
         lines.remove(chosen_line)
     else:
         print("Error: Selected movie not found in the list.")
-    
 
     # Overwrite the source file with remaining lines
     with open(source_file, 'w') as file:
@@ -102,9 +107,7 @@ def run_movie_selection():
     auto_open = auto_open_var.get()
     choose_movie(auto_open)
 
-# File paths
-source_file = 'OscarBestPicturesNotWatched.txt'
-used_file = 'OscarBestPicturesWatched.txt'
+
 
 chosen_line = None 
 
@@ -197,7 +200,7 @@ else:
     choose_movie_button = tk.Button(
         root,
         text="Choose and Save Movie",
-        command = lambda: find_possible_streaming_places_function(movie_title),
+        command = lambda: select_and_save_movie(),
         bg="#03c94f",
         font=("Arial", 20, "bold"),
         width=30,     
