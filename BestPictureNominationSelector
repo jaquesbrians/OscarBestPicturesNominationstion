@@ -87,19 +87,18 @@ def choose_movie(auto_open):
     return chosen_line
 
 def select_and_save_movie():
-    # Remove selected movie from the unwatched list
     global chosen_line
     if chosen_line in lines:
         lines.remove(chosen_line)
     else:
         print("Error: Selected movie not found in the list.")
 
-    # Overwrite the source file with remaining lines
+    # Overwrite OscarBestPictureNotWatched.txt to write the list without chosen movie
     with open(source_file, 'w') as file:
         for line in lines:
            file.write(line + '\n')
 
-    # Step 6: Append the chosen line to the used file
+    # Append the chosen movie to OscarBestPicturesWatched.txt
     with open(used_file, 'a') as file:
         file.write(chosen_line + '\n')
 
@@ -108,8 +107,7 @@ def run_movie_selection():
     choose_movie(auto_open)
 
 
-
-chosen_line = None 
+#chosen_line = None 
 
 with open(source_file, 'r') as file:
     lines = [line.strip() for line in file if line.strip()] 
@@ -211,20 +209,3 @@ else:
     choose_movie_button.pack_forget()
 
     root.mainloop()
-
-    #def movie_selected():
-    # Remove selected movie from the unwatched list
-    #if chosen_line in lines:
-        #lines.remove(chosen_line)
-    #else:
-        #print("Error: Selected movie not found in the list.")
-    
-
-    # Overwrite the source file with remaining lines
-    #with open(source_file, 'w') as file:
-        #for line in lines:
-           #file.write(line + '\n')
-
-    # Step 6: Append the chosen line to the used file
-    #with open(used_file, 'a') as file:
-        #file.write(chosen_line + '\n')
