@@ -1,6 +1,5 @@
 Wings					1927/1928 	Famous Players–Lasky (Lucien Hubbard, Jesse L. Lasky, B.P. Schulberg, & Adolph Zukor, producers)
 7th Heaven 				1927/1928	Fox (William Fox, producer)
-The Racket				1927/1928	The Caddo Company (Howard Hughes, producer)
 The Broadway Melody 			1927/1928	Metro-Goldwyn-Mayer (Irving Thalberg & Lawrence Weingarten, producers)
 Alibi					1927/1928	Feature Productions (Roland West, producer)
 The Hollywood Revue			1927/1928	Metro-Goldwyn-Mayer (Irving Thalberg & Harry Rapf, producers)
@@ -39,7 +38,6 @@ Cleopatra				1934		Paramount
 Flirtation Walk				1934		First National
 The Gay Divorcee			1934		RKO Radio
 Here Comes the Navy			1934		Warner Bros.
-The House of Rothschild			1934		20th Century
 Imitation of Life			1934		Universal
 One Night of Love			1934		Columbia
 The Thin Man				1934		Metro-Goldwyn-Mayer
@@ -402,7 +400,6 @@ Shakespeare in Love			1998		David Parfitt, Donna Gigliotti, Harvey Weinstein, Ed
 Elizabeth				1998		Alison Owen, Eric Fellner and Tim Bevan
 Life Is Beautiful			1998		Elda Ferri and Gianluigi Braschi
 Saving Private Ryan			1998		Steven Spielberg, Ian Bryce, Mark Gordon, and Gary Levinsohn
-The Thin Red Line			1998		Robert Michael Geisler, John Roberdeau, and Grant Hill
 American Beauty				1999		Bruce Cohen and Dan Jinks
 The Cider House Rules			1999		Richard N. Gladstein
 The Green Mile				1999		Frank Darabont and David Valdes
@@ -463,7 +460,6 @@ A Serious Man				2009		Joel Coen and Ethan Coen
 Up in the Air				2009		Daniel Dubiecki, Ivan Reitman, and Jason Reitman
 The King's Speech			2010		Iain Canning, Emile Sherman, and Gareth Unwin
 Black Swan				2010		Scott Franklin, Mike Medavoy, and Brian Oliver
-The Fighter				2010		David Hoberman, Todd Lieberman, and Mark Wahlberg
 Inception				2010		Christopher Nolan and Emma Thomas
 The Kids Are All Right			2010		Gary Gilbert, Jeffrey Levy-Hinte, and Celine Rattray
 127 Hours				2010		Danny Boyle, John Smithson, and Christian Colson

@@ -7,6 +7,7 @@ import webbrowser
 # File paths
 source_file = 'OscarBestPicturesNotWatched.txt'
 used_file = 'OscarBestPicturesWatched.txt'
+#Global Variables
 movie_title = None
 chosen_line = None
 
@@ -81,33 +82,38 @@ def choose_movie(auto_open):
     print(movie_year)
     print(movie_producer)
 
-    find_possible_streaming_places_button.pack()
-    choose_movie_button.pack()
+    find_possible_streaming_places_button.pack(pady=20)
+    select_and_save_movie_button.pack()
 
     return chosen_line
 
 def select_and_save_movie():
-    global chosen_line
-    if chosen_line in lines:
-        lines.remove(chosen_line)
+
+    message_box_result = messagebox.askyesno("Save Movie", "This will remove movie from Non Watched List")
+    if message_box_result:  
+        global chosen_line
+        if chosen_line in lines:
+             lines.remove(chosen_line)
+        else:
+            print("Error: Selected movie not found in the list.")
+
+        # Overwrite OscarBestPictureNotWatched.txt to write the list without chosen movie
+        with open(source_file, 'w') as file:
+            for line in lines:
+                file.write(line + '\n')
+
+        # Append the chosen movie to OscarBestPicturesWatched.txt
+        with open(used_file, 'a') as file:
+            file.write(chosen_line + '\n')
+
     else:
-        print("Error: Selected movie not found in the list.")
+        print("Canceled.")
 
-    # Overwrite OscarBestPictureNotWatched.txt to write the list without chosen movie
-    with open(source_file, 'w') as file:
-        for line in lines:
-           file.write(line + '\n')
-
-    # Append the chosen movie to OscarBestPicturesWatched.txt
-    with open(used_file, 'a') as file:
-        file.write(chosen_line + '\n')
 
 def run_movie_selection():
     auto_open = auto_open_var.get()
     choose_movie(auto_open)
 
-
-#chosen_line = None 
 
 with open(source_file, 'r') as file:
     lines = [line.strip() for line in file if line.strip()] 
@@ -195,7 +201,7 @@ else:
     )
     find_possible_streaming_places_button.pack_forget()
 
-    choose_movie_button = tk.Button(
+    select_and_save_movie_button = tk.Button(
         root,
         text="Choose and Save Movie",
         command = lambda: select_and_save_movie(),
@@ -206,6 +212,6 @@ else:
         padx=10,      
         pady=10      
     )
-    choose_movie_button.pack_forget()
+    select_and_save_movie_button.pack_forget()
 
     root.mainloop()
