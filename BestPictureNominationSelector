@@ -11,6 +11,8 @@ used_file = 'OscarBestPicturesWatched.txt'
 movie_title = None
 chosen_line = None
 
+other_countries_to_try = ["us", "gb", "ca", "au", "fr", "de", "jp"]
+
 def open_all_movie_links_automatically(services):
     for service in services:
         service_name = service.get("name")
@@ -31,12 +33,14 @@ def open_all_movie_links_manually(title, services):
     webbrowser.open("movie_links.html")
     return
 
-def find_possible_streaming_places_function(movie_title):
+def find_possible_streaming_places_function(movie_title, country_code):
+    keep_checking = True
     url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
     querystring = {
-        "title": movie_title,
-        #"title": "Men in Black",
-        "country": "us",
+        #"title": movie_title,
+        "title": "The Barretts of Wimpole Street",
+        #"country": "us",
+        "country": country_code,
         "show_type": "movie"
    }
 
@@ -49,19 +53,34 @@ def find_possible_streaming_places_function(movie_title):
     print(response.status_code) 
     if response.status_code != 200:
         print("Error fetching data from the API.")
+        messagebox.showerror("Could Not Fetch Data", "Response Status Code == {response.status_code}")
     else:
         data = response.json()
         results = data
         if results:
             first_result = results[0]
             title = first_result["title"]
-            services = first_result.get("streamingOptions", {}).get("us", {})
+            services = first_result.get("streamingOptions", {}).get(country_code, {})
             print(f"\n🎬 Found: {title}")
 
-            #open_all_movie_links_manually(title, services)
-            open_all_movie_links_automatically(services)    
+            if len(services) == 0:
+                messagebox.showwarning("Not Found", f"{movie_title} curently not found in {country_code} streaming options")
+            else:
+                keep_checking = False
+                #open_all_movie_links_manually(title, services)
+                open_all_movie_links_automatically(services)
+                return keep_checking
+                    
         else:
            print("No streaming information found for this movie.") 
+           messagebox.showwarning("Not Found", f"{movie_title} currently not found in usual streaming options")
+
+#Problem here with the global variable of keep checing countries ???
+def cycle_through_countries_for_movie(movie_title):
+    keep_checking_countries = True
+    for country in other_countries_to_try:
+        if keep_checking_countries:
+            keep_checking_countries = find_possible_streaming_places_function(movie_title, country)
 
 def choose_movie(auto_open):
     global movie_title
@@ -192,7 +211,7 @@ else:
     find_possible_streaming_places_button = tk.Button(
         root,
         text="Find Possible Streaming Places",
-        command = lambda: find_possible_streaming_places_function(movie_title),
+        command = lambda: cycle_through_countries_for_movie(movie_title),
         font=("Arial", 20, "bold"),
         width=30,     
         height=2,     
