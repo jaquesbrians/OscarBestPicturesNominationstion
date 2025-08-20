@@ -5,8 +5,8 @@ import requests
 import webbrowser
 
 # File paths
-source_file = 'OscarBestPicturesNotWatched.txt'
-used_file = 'OscarBestPicturesWatched.txt'
+not_watched_file = 'OscarBestPicturesNotWatched.txt'
+watched_file = 'OscarBestPicturesWatched.txt'
 
 #Global Variables
 movie_title = None
@@ -45,8 +45,8 @@ def find_possible_streaming_places_function(movie_title, country_code):
     keep_checking_countries = True
     url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
     querystring = {
-        #"title": movie_title,
-        "title": "sorcerer",
+        "title": movie_title,
+        #"title": "sorcerer",
         "country": country_code,
         "show_type": "movie"
    }
@@ -126,12 +126,12 @@ def select_and_save_movie():
             print("Error: Selected movie not found in the list.")
 
         # Overwrite OscarBestPictureNotWatched.txt to write the list without chosen movie
-        with open(source_file, 'w') as file:
+        with open(not_watched_file, 'w') as file:
             for line in lines:
                 file.write(line + '\n')
 
         # Append the chosen movie to OscarBestPicturesWatched.txt
-        with open(used_file, 'a') as file:
+        with open(watched_file, 'a') as file:
             file.write(chosen_line + '\n')
 
     else:
@@ -142,8 +142,16 @@ def run_movie_selection():
     auto_open = auto_open_var.get()
     choose_movie(auto_open)
 
+# I also want to create menu items that you can see which movies you watched, and maybe all the movies you have not watched
+# And maybe even be able to choose those movies from a list so they can be looked up
+# And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
+
 def reset_watched_list():
-    print("New File")
+    message_box_result = messagebox.askyesno("Reset Watched List", "Selecting 'YES' will erase all movies in Watched List?")
+    if message_box_result:
+         with open(watched_file, 'w') as file:
+            pass
+            print("Resetting Watched List File")
 
 def reset_unwatched_list():
     print("Open File")
@@ -152,7 +160,7 @@ def exit_app():
     root.quit()
 
 
-with open(source_file, 'r') as file:
+with open(not_watched_file, 'r') as file:
     lines = [line.strip() for line in file if line.strip()] 
 
 if not lines:
