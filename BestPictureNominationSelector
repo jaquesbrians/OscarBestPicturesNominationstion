@@ -146,6 +146,31 @@ def run_movie_selection():
 # And maybe even be able to choose those movies from a list so they can be looked up
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 
+
+def open_popup_window(lines):
+    popup = tk.Toplevel(root)
+    popup.title("Select an Watched Movie")
+    popup.geometry("600x600")
+
+    def on_select(line):
+        messagebox.showinfo("Selection", f"You selected: {line}")
+        popup.destroy()
+        #probably put look up here
+
+    for line in lines:
+        btn = tk.Button(popup, text=line, anchor="w", command=lambda i=line: on_select(i))
+        btn.pack(fill="x")
+
+def see_watched_list():
+    with open(watched_file, 'r') as file:
+        lines = [line.strip() for line in file if line.strip()]
+    open_popup_window(lines)
+
+def see_unwatched_list():
+    with open(not_watched_file, 'r') as file:
+        lines = [line.strip() for line in file if line.strip()]
+    open_popup_window(lines)
+
 def reset_watched_list():
     message_box_result = messagebox.askyesno("Reset Watched List", "Selecting 'YES' will erase all movies in Watched List?")
     if message_box_result:
@@ -158,7 +183,6 @@ def reset_unwatched_list():
 
 def exit_app():
     root.quit()
-
 
 with open(not_watched_file, 'r') as file:
     lines = [line.strip() for line in file if line.strip()] 
@@ -183,6 +207,9 @@ else:
 
     # ----- File Menu -----
     file_menu = tk.Menu(menu_bar, tearoff=0)  # "tearoff=0" removes the dashed line
+    file_menu.add_command(label= "See Watched List", command= lambda:see_watched_list())
+    file_menu.add_command(label= "See UnWatched List", command= lambda:see_unwatched_list())
+    file_menu.add_separator()
     file_menu.add_command(label="Reset Watched List", command=reset_watched_list)
     file_menu.add_command(label="Reset UnWatched List", command=reset_unwatched_list)
     file_menu.add_separator()
