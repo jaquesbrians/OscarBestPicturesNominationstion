@@ -137,7 +137,6 @@ def select_and_save_movie():
     else:
         print("Canceled.")
 
-
 def run_movie_selection():
     auto_open = auto_open_var.get()
     choose_movie(auto_open)
@@ -145,9 +144,12 @@ def run_movie_selection():
 # I also want to create menu items that you can see which movies you watched, and maybe all the movies you have not watched
 # And maybe even be able to choose those movies from a list so they can be looked up
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
+# Gotta make these popup windows scrollable, and figure out to do with them when an item is clicked
 
+def open_popup_window(file_to_open):
+    with open(file_to_open, 'r') as file:
+        lines = [line.strip() for line in file if line.strip()]
 
-def open_popup_window(lines):
     popup = tk.Toplevel(root)
     popup.title("Select an Watched Movie")
     popup.geometry("600x600")
@@ -155,21 +157,11 @@ def open_popup_window(lines):
     def on_select(line):
         messagebox.showinfo("Selection", f"You selected: {line}")
         popup.destroy()
-        #probably put look up here
+        #Probably put look up here
 
     for line in lines:
         btn = tk.Button(popup, text=line, anchor="w", command=lambda i=line: on_select(i))
         btn.pack(fill="x")
-
-def see_watched_list():
-    with open(watched_file, 'r') as file:
-        lines = [line.strip() for line in file if line.strip()]
-    open_popup_window(lines)
-
-def see_unwatched_list():
-    with open(not_watched_file, 'r') as file:
-        lines = [line.strip() for line in file if line.strip()]
-    open_popup_window(lines)
 
 def reset_watched_list():
     message_box_result = messagebox.askyesno("Reset Watched List", "Selecting 'YES' will erase all movies in Watched List?")
@@ -207,8 +199,8 @@ else:
 
     # ----- File Menu -----
     file_menu = tk.Menu(menu_bar, tearoff=0)  # "tearoff=0" removes the dashed line
-    file_menu.add_command(label= "See Watched List", command= lambda:see_watched_list())
-    file_menu.add_command(label= "See UnWatched List", command= lambda:see_unwatched_list())
+    file_menu.add_command(label= "See Watched List", command= lambda:open_popup_window(watched_file))
+    file_menu.add_command(label= "See UnWatched List", command= lambda:open_popup_window(not_watched_file))
     file_menu.add_separator()
     file_menu.add_command(label="Reset Watched List", command=reset_watched_list)
     file_menu.add_command(label="Reset UnWatched List", command=reset_unwatched_list)
