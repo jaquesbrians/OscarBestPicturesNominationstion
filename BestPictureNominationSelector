@@ -5,6 +5,7 @@ import requests
 import webbrowser
 
 # File paths
+nominations_full_list_file = 'OscarBestPicturesNominationsFullList.txt'
 not_watched_file = 'OscarBestPicturesNotWatched.txt'
 watched_file = 'OscarBestPicturesWatched.txt'
 
@@ -145,6 +146,7 @@ def run_movie_selection():
 # And maybe even be able to choose those movies from a list so they can be looked up
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 # Gotta make these popup windows scrollable, and figure out to do with them when an item is clicked
+# need to add another menu item to update not watched list and removes watched movies.  (Almost like a debug movie)
 
 def open_popup_window(file_to_open):
     with open(file_to_open, 'r') as file:
@@ -171,7 +173,13 @@ def reset_watched_list():
             print("Resetting Watched List File")
 
 def reset_unwatched_list():
-    print("Open File")
+    message_box_result = messagebox.askyesno("Reset UnWatched List", "Selecting 'YES' will put all movies back in UnWatched List?")
+    if message_box_result:
+        with open(nominations_full_list_file, 'r') as full_file:
+            lines = [line.strip() for line in full_file if line.strip()] 
+            with open(not_watched_file, 'w') as updated_file:
+                for line in lines:
+                    updated_file.write(line + '\n')
 
 def exit_app():
     root.quit()
@@ -204,8 +212,6 @@ else:
     file_menu.add_separator()
     file_menu.add_command(label="Reset Watched List", command=reset_watched_list)
     file_menu.add_command(label="Reset UnWatched List", command=reset_unwatched_list)
-    file_menu.add_separator()
-    file_menu.add_command(label="Exit", command=exit_app)
     menu_bar.add_cascade(label="File", menu=file_menu)
 
     exit_menu = tk.Menu(menu_bar)

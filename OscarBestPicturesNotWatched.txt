@@ -1,29 +1,31 @@
-Wings					                1927/1928 	Famous Players–Lasky (Lucien Hubbard, Jesse L. Lasky, B.P. Schulberg, & Adolph Zukor, producers)
-7th Heaven 				                1927/1928	Fox (William Fox, producer)
-The Broadway Melody 	                1927/1928	Metro-Goldwyn-Mayer (Irving Thalberg & Lawrence Weingarten, producers)
-Alibi					                1927/1928	Feature Productions (Roland West, producer)
-The Hollywood Revue		                1927/1928	Metro-Goldwyn-Mayer (Irving Thalberg & Harry Rapf, producers)
-In Old Arizona			                1927/1928	Fox (Winfield Sheehan, producer)
-The Patriot				                1927/1928	Paramount Famous Lasky
-All Quiet on the Western Front		    1929/1930	Universal (Carl Laemmle Jr., producer)
-The Big House				            1929/1930	Cosmopolitan (Irving Thalberg, producer)
-Disraeli				                1929/1930	Warner Bros. (Jack L. Warner & Darryl F. Zanuck, producers)
-The Divorcee				            1929/1930	Metro-Goldwyn-Mayer (Robert Z. Leonard, producer)
+Wings					1927/1928 	Famous Players–Lasky (Lucien Hubbard, Jesse L. Lasky, B.P. Schulberg, & Adolph Zukor, producers)
+7th Heaven 				1927/1928	Fox (William Fox, producer)
+The Racket				1927/1928	The Caddo Company (Howard Hughes, producer)
+The Broadway Melody 			1927/1928	Metro-Goldwyn-Mayer (Irving Thalberg & Lawrence Weingarten, producers)
+Alibi					1927/1928	Feature Productions (Roland West, producer)
+The Hollywood Revue			1927/1928	Metro-Goldwyn-Mayer (Irving Thalberg & Harry Rapf, producers)
+In Old Arizona				1927/1928	Fox (Winfield Sheehan, producer)
+The Patriot				1927/1928	Paramount Famous Lasky
+All Quiet on the Western Front		1929/1930	Universal (Carl Laemmle Jr., producer)
+The Big House				1929/1930	Cosmopolitan (Irving Thalberg, producer)
+Disraeli				1929/1930	Warner Bros. (Jack L. Warner & Darryl F. Zanuck, producers)
+The Divorcee				1929/1930	Metro-Goldwyn-Mayer (Robert Z. Leonard, producer)
 The Love Parade	Paramount Famous Lasky 	1929/1930	(Ernst Lubitsch, producer)
-Cimarron				                1930/1931	RKO Radio (William LeBaron, producer)
-East Lynne				                1930/1931	Fox
-Skippy					                1930/1931	Paramount Publix (Jesse L. Lasky, B.P. Schulberg, & Adolph Zukor, producers)
-Trader Horn				                1930/1931	Metro-Goldwyn-Mayer (Irving Thalberg, producer)
-Grand Hotel				                1931/1932	Metro-Goldwyn-Mayer (Irving Thalberg, producer)
-Arrowsmith				                1931/1932	Samuel Goldwyn Productions (Samuel Goldwyn, producer)
-Bad Girl				                1931/1932	Fox
-The Champ				                1931/1932	Metro-Goldwyn-Mayer (King Vidor, producer)
-Five Star Final			                1931/1932	First National (Hal B. Wallis, producer)
-One Hour with You		                1931/1932	Paramount Publix (Ernst Lubitsch, producer)
-Shanghai Express		                1931/1932	Paramount Publix (Adolph Zukor, producer)
-The Smiling Lieutenant	                1931/1932	Paramount Publix (Ernst Lubitsch, producer)
-Cavalcade				                1932/1933	Fox (Frank Lloyd & Winfield Sheehan, producers)
-42nd Street				                1932/1933	Warner Bros.
+Cimarron				1930/1931	RKO Radio (William LeBaron, producer)
+East Lynne				1930/1931	Fox
+The Front Page				1930/1931	The Caddo Company (Howard Hughes & Lewis Milestone, producers)
+Skippy					1930/1931	Paramount Publix (Jesse L. Lasky, B.P. Schulberg, & Adolph Zukor, producers)
+Trader Horn				1930/1931	Metro-Goldwyn-Mayer (Irving Thalberg, producer)
+Grand Hotel				1931/1932	Metro-Goldwyn-Mayer (Irving Thalberg, producer)
+Arrowsmith				1931/1932	Samuel Goldwyn Productions (Samuel Goldwyn, producer)
+Bad Girl				1931/1932	Fox
+The Champ				1931/1932	Metro-Goldwyn-Mayer (King Vidor, producer)
+Five Star Final				1931/1932	First National (Hal B. Wallis, producer)
+One Hour with You			1931/1932	Paramount Publix (Ernst Lubitsch, producer)
+Shanghai Express			1931/1932	Paramount Publix (Adolph Zukor, producer)
+The Smiling Lieutenant			1931/1932	Paramount Publix (Ernst Lubitsch, producer)
+Cavalcade				1932/1933	Fox (Frank Lloyd & Winfield Sheehan, producers)
+42nd Street				1932/1933	Warner Bros.
 A Farewell to Arms			1932/1933	Paramount
 I Am a Fugitive from a Chain Gang	1932/1933	Warner Bros.
 Lady for a Day				1932/1933	Columbia
@@ -38,6 +40,7 @@ Cleopatra				1934		Paramount
 Flirtation Walk				1934		First National
 The Gay Divorcee			1934		RKO Radio
 Here Comes the Navy			1934		Warner Bros.
+The House of Rothschild			1934		20th Century
 Imitation of Life			1934		Universal
 One Night of Love			1934		Columbia
 The Thin Man				1934		Metro-Goldwyn-Mayer
@@ -71,6 +74,7 @@ Captains Courageous			1937		Metro-Goldwyn-Mayer
 Dead End				1937		Samuel Goldwyn Productions (Samuel Goldwyn, producer)
 The Good Earth				1937		Metro-Goldwyn-Mayer
 In Old Chicago				1937		20th Century-Fox
+Lost Horizon				1937		Columbia
 One Hundred Men and a Girl		1937		Universal
 Stage Door				1937		RKO Radio
 A Star Is Born				1937		Selznick International Pictures
@@ -96,6 +100,7 @@ The Wizard of Oz			1939		Metro-Goldwyn-Mayer
 Wuthering Heights			1939		Samuel Goldwyn Productions
 Rebecca					1940		Selznick International Pictures (David O. Selznick, producer)
 All This, and Heaven Too		1940		Warner Bros.
+Foreign Correspondent			1940		Walter Wanger (production company)
 The Grapes of Wrath			1940		20th Century-Fox
 The Great Dictator			1940		Charles Chaplin Productions
 Kitty Foyle				1940		RKO Radio
@@ -121,6 +126,7 @@ The Pied Piper				1942		20th Century-Fox
 The Pride of the Yankees		1942		Samuel Goldwyn Productions (Samuel Goldwyn, producer)
 Random Harvest				1942		Metro-Goldwyn-Mayer
 The Talk of the Town			1942		Columbia
+Wake Island				1942		Paramount
 Yankee Doodle Dandy			1942		Warner Bros.
 Casablanca				1943		Warner Bros. (Hal B. Wallis, producer)
 For Whom the Bell Tolls			1943		Paramount
@@ -133,6 +139,7 @@ The Ox-Bow Incident			1943		20th Century-Fox
 The Song of Bernadette			1943		20th Century-Fox
 Watch on the Rhine			1943		Warner Bros.
 Going My Way				1944		Paramount (Leo McCarey, producer)
+Double Indemnity			1944		Paramount
 Gaslight				1944		Metro-Goldwyn-Mayer
 Since You Went Away			1944		Selznick International Pictures (David O. Selznick, producer)
 Wilson					1944		20th Century-Fox
@@ -247,6 +254,7 @@ The Sand Pebbles			1966		Robert Wise
 Who's Afraid of Virginia Woolf?		1966		Ernest Lehman
 In the Heat of the Night		1967		Walter Mirisch
 Bonnie and Clyde			1967		Warren Beatty
+Doctor Dolittle				1967		Arthur P. Jacobs
 The Graduate				1967		Lawrence Turman
 Guess Who's Coming to Dinner		1967		Stanley Kramer
 Oliver!					1968		John Woolf
@@ -272,6 +280,7 @@ The Godfather				1972		Albert S. Ruddy
 Cabaret					1972		Cy Feuer
 Deliverance				1972		John Boorman
 The Emigrants				1972		Bengt Forslund
+Sounder					1972		Robert B. Radnitz
 The Sting				1973		Tony Bill, Michael Phillips, and Julia Phillips
 American Graffiti			1973		Francis Ford Coppola and Gary Kurtz
 Cries and Whispers			1973		Ingmar Bergman
@@ -307,6 +316,7 @@ All That Jazz				1979		Robert Alan Aurthur
 Apocalypse Now				1979		Francis Ford Coppola, Fred Roos, Gray Frederickson, and Tom Sternberg
 Breaking Away				1979		Peter Yates
 Norma Rae				1979		Tamara Asseyev and Alex Rose
+Ordinary People				1980		Ronald L. Schwary
 Coal Miner's Daughter			1980		Bernard Schwartz
 The Elephant Man			1980		Jonathan Sanger
 Raging Bull				1980		Irwin Winkler and Robert Chartoff
@@ -352,6 +362,7 @@ Dangerous Liaisons			1988		Norma Heyman and Hank Moonjean
 Mississippi Burning			1988		Frederick Zollo and Robert F. Colesberry
 Working Girl				1988		Douglas Wick
 Driving Miss Daisy			1989		Richard D. Zanuck and Lili Fini Zanuck
+Born on the Fourth of July		1989		A. Kitman Ho and Oliver Stone
 Dead Poets Society			1989		Steven Haft, Paul Junger Witt, and Tony Thomas
 Field of Dreams				1989		Lawrence Gordon and Charles Gordon
 My Left Foot				1989		Noel Pearson
@@ -368,6 +379,7 @@ The Prince of Tides			1991		Barbra Streisand and Andrew S. Karsch
 Unforgiven				1992		Clint Eastwood
 The Crying Game				1992		Stephen Woolley
 A Few Good Men				1992		David Brown, Rob Reiner, and Andrew Scheinman
+Howards End				1992		Ismail Merchant
 Scent of a Woman			1992		Martin Brest
 Schindler's List			1993		Steven Spielberg, Gerald R. Molen, and Branko Lustig
 The Fugitive				1993		Arnold Kopelson
@@ -398,6 +410,7 @@ Shakespeare in Love			1998		David Parfitt, Donna Gigliotti, Harvey Weinstein, Ed
 Elizabeth				1998		Alison Owen, Eric Fellner and Tim Bevan
 Life Is Beautiful			1998		Elda Ferri and Gianluigi Braschi
 Saving Private Ryan			1998		Steven Spielberg, Ian Bryce, Mark Gordon, and Gary Levinsohn
+The Thin Red Line			1998		Robert Michael Geisler, John Roberdeau, and Grant Hill
 American Beauty				1999		Bruce Cohen and Dan Jinks
 The Cider House Rules			1999		Richard N. Gladstein
 The Green Mile				1999		Frank Darabont and David Valdes
@@ -451,13 +464,16 @@ The Reader				2008		Anthony Minghella, Sydney Pollack, Donna Gigliotti, and Redm
 The Hurt Locker				2009		Kathryn Bigelow, Mark Boal, Nicolas Chartier, and Greg Shapiro
 Avatar					2009		James Cameron and Jon Landau
 The Blind Side				2009		Gil Netter, Andrew A. Kosove, and Broderick Johnson
+District 9				2009		Peter Jackson and Carolynne Cunningham
 An Education				2009		Finola Dwyer and Amanda Posey
 Inglourious Basterds			2009		Lawrence Bender
 Precious: Based on the Novel "Push" 	2009		Lee Daniels, Sarah Siegel-Magness, and Gary Magness
 A Serious Man				2009		Joel Coen and Ethan Coen
+Up					2009		Jonas Rivera
 Up in the Air				2009		Daniel Dubiecki, Ivan Reitman, and Jason Reitman
 The King's Speech			2010		Iain Canning, Emile Sherman, and Gareth Unwin
 Black Swan				2010		Scott Franklin, Mike Medavoy, and Brian Oliver
+The Fighter				2010		David Hoberman, Todd Lieberman, and Mark Wahlberg
 Inception				2010		Christopher Nolan and Emma Thomas
 The Kids Are All Right			2010		Gary Gilbert, Jeffrey Levy-Hinte, and Celine Rattray
 127 Hours				2010		Danny Boyle, John Smithson, and Christian Colson
@@ -470,18 +486,22 @@ The Descendants				2011		Jim Burke, Alexander Payne, and Jim Taylor
 Extremely Loud & Incredibly Close	2011		Scott Rudin
 The Help				2011		Brunson Green, Chris Columbus, and Michael Barnathan
 Hugo					2011		Graham King and Martin Scorsese
+Midnight in Paris			2011		Letty Aronson and Stephen Tenenbaum
 Moneyball				2011		Michael De Luca, Rachael Horovitz, and Brad Pitt
+The Tree of Life			2011		Sarah Green, Bill Pohlad, Dede Gardner, and Grant Hill
 War Horse				2011		Steven Spielberg and Kathleen Kennedy
 Argo					2012		Grant Heslov, Ben Affleck, and George Clooney
 Amour					2012		Margaret Menegoz, Stefan Arndt, Veit Heiduschka, and Michael Katz
 Beasts of the Southern Wild		2012		Dan Janvey, Josh Penn, and Michael Gottwald
 Django Unchained			2012		Stacey Sher, Reginald Hudlin, and Pilar Savone
+Life of Pi				2012		Gil Netter, Ang Lee, and David Womark
 Lincoln					2012		Steven Spielberg and Kathleen Kennedy
 Les Misérables				2012		Tim Bevan, Eric Fellner, Debra Hayward, and Cameron Mackintosh
 Silver Linings Playbook			2012		Donna Gigliotti, Bruce Cohen, and Jonathan Gordon
 Zero Dark Thirty			2012		Mark Boal, Kathryn Bigelow, and Megan Ellison
 12 Years a Slave			2013		Brad Pitt, Dede Gardner, Jeremy Kleiner, Steve McQueen, and Anthony Katagas
 American Hustle				2013		Charles Roven, Richard Suckle, Megan Ellison, and Jonathan Gordon
+Captain Phillips			2013		Scott Rudin, Dana Brunetti, and Michael De Luca
 Dallas Buyers Club			2013		Robbie Brenner and Rachel Winter
 Gravity					2013		Alfonso Cuarón and David Heyman
 Her					2013		Megan Ellison, Spike Jonze, and Vincent Landay
@@ -538,6 +558,7 @@ Joker					2019		Todd Phillips, Bradley Cooper, and Emma Tillinger Koskoff
 Little Women				2019		Amy Pascal
 Marriage Story				2019		Noah Baumbach and David Heyman
 1917					2019		Sam Mendes, Pippa Harris, Jayne-Ann Tenggren, and Callum McDougall
+Once Upon a Time in Hollywood		2019		David Heyman, Shannon McIntosh, and Quentin Tarantino
 Nomadland				2020		Frances McDormand, Peter Spears, Mollye Asher, Dan Janvey, and Chloé Zhao
 The Father				2020		David Parfitt, Jean-Louis Livi, and Philippe Carcassonne
 Judas and the Black Messiah		2020		Shaka King, Charles D. King, and Ryan Coogler
@@ -567,6 +588,7 @@ Top Gun: Maverick			2022		Tom Cruise, Christopher McQuarrie, David Ellison, and 
 Triangle of Sadness			2022		Erik Hemmendorff and Philippe Bober
 Women Talking				2022		Dede Gardner, Jeremy Kleiner, and Frances McDormand
 Oppenheimer				2023		Emma Thomas, Charles Roven, and Christopher Nolan
+American Fiction			2023		Ben LeClair, Nikos Karamigios, Cord Jefferson, and Jermaine Johnson
 Anatomy of a Fall			2023		Marie-Ange Luciani and David Thion
 Barbie					2023		David Heyman, Margot Robbie, Tom Ackerley, and Robbie Brenner
 The Holdovers				2023		Mark Johnson
