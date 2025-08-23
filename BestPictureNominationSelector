@@ -88,6 +88,7 @@ def cycle_through_countries_for_movie(movie_title):
         if keep_checking_countries:
             find_possible_streaming_places_function(movie_title, country)
         else:
+            keep_checking_countries = True
             return
         
     messagebox.showwarning("Not Found", f"{movie_title} currently not found in usual streaming options")
@@ -157,7 +158,10 @@ def open_popup_window(file_to_open):
     popup.geometry("600x600")
 
     def on_select(line):
-        messagebox.showinfo("Selection", f"You selected: {line}")
+        manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
+        manual_select_movie_title = manual_select_movie_info_line[0]
+        cycle_through_countries_for_movie(manual_select_movie_title)
+        #Not sure if we want to close the list of movies popup after you selected it.  I'm thinkking we shouldn't.
         popup.destroy()
         #Probably put look up here
 
