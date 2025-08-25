@@ -143,8 +143,6 @@ def run_movie_selection():
     auto_open = auto_open_var.get()
     choose_movie(auto_open)
 
-# I also want to create menu items that you can see which movies you watched, and maybe all the movies you have not watched
-# And maybe even be able to choose those movies from a list so they can be looked up
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 # Gotta make these popup windows scrollable, and figure out to do with them when an item is clicked
 # need to add another menu item to update not watched list and removes watched movies.  (Almost like a debug movie)
@@ -185,6 +183,19 @@ def reset_unwatched_list():
                 for line in lines:
                     updated_file.write(line + '\n')
 
+def debug_fix_corrupted_lists():
+    message_box_result = messagebox.askyesno("Fix Corrupted Watched and UnWatched Lists", "Selecting 'YES' will update Unwatched list to not count movies in watched list")
+    if message_box_result:
+        with open(nominations_full_list_file, 'r') as full_nominations_file:
+            nominations_lines = [line.strip() for line in full_nominations_file if line.strip()] 
+            with open(watched_file, 'r') as full_watched_file:
+                watched_lines = [line.strip() for line in full_watched_file if line.strip()] 
+                with open(not_watched_file, 'w') as full_unwatched_file:
+                    for nomination_line in nominations_lines:
+                        if nomination_line not in watched_lines:
+                            full_unwatched_file.write(nomination_line + '\n')
+
+
 def exit_app():
     root.quit()
 
@@ -216,6 +227,8 @@ else:
     file_menu.add_separator()
     file_menu.add_command(label="Reset Watched List", command=reset_watched_list)
     file_menu.add_command(label="Reset UnWatched List", command=reset_unwatched_list)
+    file_menu.add_separator()
+    file_menu.add_command(label="Debug Fix Corrupted Lists", command=debug_fix_corrupted_lists)
     menu_bar.add_cascade(label="File", menu=file_menu)
 
     exit_menu = tk.Menu(menu_bar)
