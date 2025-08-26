@@ -29,17 +29,29 @@ def open_all_movie_links_automatically(services):
 
 def open_all_movie_links_manually(title, services):
     html_lines = [f"<h2>🎬 {title}</h2><ul>"]
+    different_platform_options = []
     for service in services:
-        name = service.get("name", "Unknown Service")
         link = service.get("link", "#")
-        html_lines.append(f'<li><a href="{link}" target="_blank">{name}</a></li>')
+        different_platform_options.append(link)
 
-    html_lines.append("</ul>")
-    html_content = "\n".join(html_lines)
-    with open("movie_links.html", "w", encoding="utf-8") as f:
-        f.write(html_content)
-    webbrowser.open("movie_links.html")
-    return
+    with open("different_platform_options_file.html") as different_platform_otions_file:
+        for line in html_lines:
+            different_platform_otions_file.write(line + '\n')
+
+    open_popup_window("different_platform_options_file.html")
+
+    #html_lines = [f"<h2>🎬 {title}</h2><ul>"]
+    #for service in services:
+        #name = service.get("name", "Unknown Service")
+        #link = service.get("link", "#")
+        #html_lines.append(f'<li><a href="{link}" target="_blank">{name}</a></li>')
+
+    #html_lines.append("</ul>")
+    #html_content = "\n".join(html_lines)
+    #with open("movie_links.html", "w", encoding="utf-8") as f:
+        #f.write(html_content)
+    #webbrowser.open("movie_links.html")
+    #return
 
 def find_possible_streaming_places_function(movie_title, country_code):
     global keep_checking_countries
@@ -144,28 +156,42 @@ def run_movie_selection():
     choose_movie(auto_open)
 
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
-# Gotta make these popup windows scrollable, and figure out to do with them when an item is clicked
-# need to add another menu item to update not watched list and removes watched movies.  (Almost like a debug movie)
 
 def open_popup_window(file_to_open):
     with open(file_to_open, 'r') as file:
         lines = [line.strip() for line in file if line.strip()]
 
     popup = tk.Toplevel(root)
-    popup.title("Select an Watched Movie")
-    popup.geometry("600x600")
+    popup.title("Select a Watched Movie")
+    popup.geometry("800x800")
 
+    # --- Create a canvas with a scrollbar ---
+    popup_canvas = tk.Canvas(popup)
+    scrollbar = tk.Scrollbar(popup, orient="vertical", command=popup_canvas.yview)
+    scrollable_frame = tk.Frame(popup_canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: popup_canvas.configure(
+            scrollregion=popup_canvas.bbox("all")  # update scroll region to include new widgets
+        )
+    )
+
+    popup_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    popup_canvas.configure(yscrollcommand=scrollbar.set)
+
+    popup_canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
+    # --- Selection function ---
     def on_select(line):
         manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
         manual_select_movie_title = manual_select_movie_info_line[0]
         cycle_through_countries_for_movie(manual_select_movie_title)
-        #Not sure if we want to close the list of movies popup after you selected it.  I'm thinkking we shouldn't.
-        popup.destroy()
-        #Probably put look up here
 
     for line in lines:
-        btn = tk.Button(popup, text=line, anchor="w", command=lambda i=line: on_select(i))
-        btn.pack(fill="x")
+        button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
+        button.pack(fill="x")
 
 def reset_watched_list():
     message_box_result = messagebox.askyesno("Reset Watched List", "Selecting 'YES' will erase all movies in Watched List?")
