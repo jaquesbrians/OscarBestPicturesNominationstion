@@ -8,6 +8,7 @@ import webbrowser
 nominations_full_list_file = 'OscarBestPicturesNominationsFullList.txt'
 not_watched_file = 'OscarBestPicturesNotWatched.txt'
 watched_file = 'OscarBestPicturesWatched.txt'
+service_link_options_file = 'ManualServiceLinkOptionsList.txt'
 
 #Global Variables
 movie_title = None
@@ -34,11 +35,13 @@ def open_all_movie_links_manually(title, services):
         link = service.get("link", "#")
         different_platform_options.append(link)
 
-    with open("different_platform_options_file.html") as different_platform_otions_file:
+    with open(service_link_options_file, 'w', encoding="utf-8") as file:
         for line in html_lines:
-            different_platform_otions_file.write(line + '\n')
+            file.write(line + '\n')
 
-    open_popup_window("different_platform_options_file.html")
+    #Still have bug here with what the link should look like and need to save actual open link in dict for button?
+
+    open_popup_window(service_link_options_file)
 
     #html_lines = [f"<h2>🎬 {title}</h2><ul>"]
     #for service in services:
