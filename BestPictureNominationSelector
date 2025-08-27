@@ -36,7 +36,7 @@ def open_all_movie_links_manually(title, services):
         different_platform_options.append(link)
 
     with open(service_link_options_file, 'w', encoding="utf-8") as file:
-        for line in html_lines:
+        for line in different_platform_options:
             file.write(line + '\n')
 
     #Still have bug here with what the link should look like and need to save actual open link in dict for button?
@@ -89,8 +89,8 @@ def find_possible_streaming_places_function(movie_title, country_code):
             if len(services) == 0:
                 messagebox.showwarning("Not Found", f"{movie_title} curently not found in {countries_to_try_dictionary[country_code]} streaming options")
             else:
-                #open_all_movie_links_manually(title, services)
-                open_all_movie_links_automatically(services)
+                open_all_movie_links_manually(title, services)
+                #open_all_movie_links_automatically(services)
                 keep_checking_countries = False
                     
         else:
