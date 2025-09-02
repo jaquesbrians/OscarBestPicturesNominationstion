@@ -29,34 +29,15 @@ def open_all_movie_links_automatically(services):
         webbrowser.open(link) 
 
 def open_all_movie_links_manually(title, services):
-    html_lines = [f"<h2>🎬 {title}</h2><ul>"]
-    different_platform_options = []
+    #html_lines = [f"<h2>🎬 {title}</h2><ul>"]
+    streaming_service_pairs = set()
     for service in services:
         serviceIndex = service.get("service", {})
         name = serviceIndex.get("name", "#")
         link = service.get("link", "#")
-        different_platform_options.append(link)
+        streaming_service_pairs.add((name, link))
 
-    with open(service_link_options_file, 'w', encoding="utf-8") as file:
-        for line in different_platform_options:
-            file.write(line + '\n')
-
-    #Still have bug here with what the link should look like and need to save actual open link in dict for button?
-
-    open_popup_window2(title, service_link_options_file)
-
-    #html_lines = [f"<h2>🎬 {title}</h2><ul>"]
-    #for service in services:
-        #name = service.get("name", "Unknown Service")
-        #link = service.get("link", "#")
-        #html_lines.append(f'<li><a href="{link}" target="_blank">{name}</a></li>')
-
-    #html_lines.append("</ul>")
-    #html_content = "\n".join(html_lines)
-    #with open("movie_links.html", "w", encoding="utf-8") as f:
-        #f.write(html_content)
-    #webbrowser.open("movie_links.html")
-    #return
+    open_popup_window_manual(title, streaming_service_pairs)
 
 def find_possible_streaming_places_function(movie_title, country_code):
     global keep_checking_countries
@@ -162,16 +143,12 @@ def run_movie_selection():
 
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 
-def open_popup_window2(movie_title, file_to_open):
-    with open(file_to_open, 'r') as file:
-        lines = [line.strip() for line in file if line.strip()]
-
+def open_popup_window_manual(movie_title, streaming_service_pairs):
     popup = tk.Toplevel(root)
     popup.title("Select a Watched Movie")
     popup.title(f"Movie Title : {movie_title}")
     popup.geometry("800x800")
 
-    # --- Create a canvas with a scrollbar ---
     popup_canvas = tk.Canvas(popup)
     scrollbar = tk.Scrollbar(popup, orient="vertical", command=popup_canvas.yview)
     scrollable_frame = tk.Frame(popup_canvas)
@@ -179,7 +156,7 @@ def open_popup_window2(movie_title, file_to_open):
     scrollable_frame.bind(
         "<Configure>",
         lambda e: popup_canvas.configure(
-            scrollregion=popup_canvas.bbox("all")  # update scroll region to include new widgets
+            scrollregion=popup_canvas.bbox("all")
         )
     )
 
@@ -189,15 +166,13 @@ def open_popup_window2(movie_title, file_to_open):
     popup_canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-    # --- Selection function ---
-    def on_select(line):
-        manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
-        manual_select_movie_title = manual_select_movie_info_line[0]
-        cycle_through_countries_for_movie(manual_select_movie_title)
+    def on_select(link):
+        webbrowser.open(link)
 
-    for line in lines:
-        button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
+    for pair in streaming_service_pairs:
+        button = tk.Button(scrollable_frame, text=pair[0], anchor="w", command=lambda i=pair[1]: on_select(pair[1]))
         button.pack(fill="x")
+
 
 def open_popup_window(file_to_open):
     with open(file_to_open, 'r') as file:
