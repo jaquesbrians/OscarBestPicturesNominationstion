@@ -39,7 +39,7 @@ def open_all_movie_links_manually(title, services):
 
     open_popup_window_manual(title, streaming_service_pairs)
 
-def find_possible_streaming_places_function(movie_title, country_code):
+def find_possible_streaming_places_function(movie_title, country_code, auto_find):
     global keep_checking_countries
     keep_checking_countries = True
     url = "https://streaming-availability.p.rapidapi.com/shows/search/title"
@@ -72,19 +72,23 @@ def find_possible_streaming_places_function(movie_title, country_code):
             if len(services) == 0:
                 messagebox.showwarning("Not Found", f"{movie_title} curently not found in {countries_to_try_dictionary[country_code]} streaming options")
             else:
-                open_all_movie_links_manually(title, services)
-                #open_all_movie_links_automatically(services)
+
+                if auto_find:
+                    open_all_movie_links_automatically(services)
+                else:
+                    open_all_movie_links_manually(title, services)
+
                 keep_checking_countries = False
                     
         else:
            print("No streaming information found for this movie.") 
            messagebox.showwarning("Not Found", f"{movie_title} currently not found in usual streaming options")
 
-def cycle_through_countries_for_movie(movie_title):
+def cycle_through_countries_for_movie(movie_title, auto_find):
     global keep_checking_countries
     for country in other_countries_to_try:
         if keep_checking_countries:
-            find_possible_streaming_places_function(movie_title, country)
+            find_possible_streaming_places_function(movie_title, country, auto_find)
         else:
             keep_checking_countries = True
             return
@@ -110,7 +114,9 @@ def choose_movie(auto_open):
     print(movie_year)
     print(movie_producer)
 
-    find_possible_streaming_places_button.pack(pady=20)
+    top_button_frame.pack(pady=10)
+    auto_find_streaming_places_button.pack(side="left", padx=5, pady=5)
+    manual_find_streaming_places_button.pack(side="left", padx=5, pady=5)
     select_and_save_movie_button.pack()
 
     return chosen_line
@@ -170,7 +176,7 @@ def open_popup_window_manual(movie_title, streaming_service_pairs):
         webbrowser.open(link)
 
     for pair in streaming_service_pairs:
-        button = tk.Button(scrollable_frame, text=pair[0], anchor="w", command=lambda i=pair[1]: on_select(pair[1]))
+        button = tk.Button(scrollable_frame, text=pair[0], anchor="w", command=lambda link=pair[1]: on_select(link))
         button.pack(fill="x")
 
 
@@ -247,6 +253,9 @@ with open(not_watched_file, 'r') as file:
 if not lines:
     print("The source file is empty.")
 else:
+
+    background_color="#88ccf3"
+
     root = tk.Tk()
     root.title("Oscar Best Picture Nominated Selector")
     window_width = 1200
@@ -256,7 +265,7 @@ else:
     x = int((screen_width / 2) - (window_width / 2))
     y = int((screen_height / 2) - (window_height / 2) - 50)
     root.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    root.configure(bg="#ffcc99")
+    root.configure(bg=background_color)
 
     # Create the main menu bar
     menu_bar = tk.Menu(root)
@@ -281,7 +290,7 @@ else:
     tk.Label(
         root, 
         text="Randomly Find Best Picture Nominated Movie",
-        bg="#ffcc99",
+        bg=background_color,
         font=("Arial", 20, "bold") 
         ).pack(pady=10)
     
@@ -302,7 +311,7 @@ else:
     movie_selected_title = tk.Label(
         root,
         text="Movie Selected : ",
-        bg="#ffcc99",
+        bg=background_color,
         font=("Arial", 20, "bold"),
         width=100,     
         height=2,     
@@ -314,7 +323,7 @@ else:
     movie_selected_year_made = tk.Label(
         root,
         text="Year Made : ",
-        bg="#ffcc99",
+        bg=background_color,
         font=("Arial", 20, "bold"),
         width=100,     
         height=2,     
@@ -326,7 +335,7 @@ else:
     movie_selected_producer = tk.Label(
         root,
         text="Produced By : ",
-        bg="#ffcc99",
+        bg=background_color,
         font=("Arial", 20, "bold"),
         width=100,     
         height=2,     
@@ -335,17 +344,32 @@ else:
     )
     movie_selected_producer.pack(pady=5)
 
-    find_possible_streaming_places_button = tk.Button(
-        root,
-        text="Find Possible Streaming Places",
-        command = lambda: cycle_through_countries_for_movie(movie_title),
+    top_button_frame = tk.Frame(root, bg=background_color)
+    top_button_frame.pack_forget()
+
+    auto_find_streaming_places_button = tk.Button(
+        top_button_frame,
+        text="Auto Find Streaming Places",
+        command = lambda: cycle_through_countries_for_movie(movie_title, True),
         font=("Arial", 20, "bold"),
         width=30,     
         height=2,     
         padx=10,      
         pady=10      
     )
-    find_possible_streaming_places_button.pack_forget()
+    auto_find_streaming_places_button.pack_forget()
+
+    manual_find_streaming_places_button = tk.Button(
+        top_button_frame,
+        text="Manual Find Streaming Places",
+        command = lambda: cycle_through_countries_for_movie(movie_title, False),
+        font=("Arial", 20, "bold"),
+        width=30,     
+        height=2,     
+        padx=10,      
+        pady=10      
+    )
+    manual_find_streaming_places_button.pack_forget()
 
     select_and_save_movie_button = tk.Button(
         root,
