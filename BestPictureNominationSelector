@@ -4,6 +4,9 @@ from tkinter import messagebox
 import requests
 import webbrowser
 
+# And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
+# Also consolidate those popup scrollable window functions (The same set up is currently in 3 different functions.)
+
 # File paths
 nominations_full_list_file = 'OscarBestPicturesNominationsFullList.txt'
 not_watched_file = 'OscarBestPicturesNotWatched.txt'
@@ -29,7 +32,6 @@ def open_all_movie_links_automatically(services):
         webbrowser.open(link) 
 
 def open_all_movie_links_manually(title, services):
-    #html_lines = [f"<h2>🎬 {title}</h2><ul>"]
     streaming_service_pairs = set()
     for service in services:
         serviceIndex = service.get("service", {})
@@ -117,7 +119,9 @@ def choose_movie(auto_open):
     top_button_frame.pack(pady=10)
     auto_find_streaming_places_button.pack(side="left", padx=5, pady=5)
     manual_find_streaming_places_button.pack(side="left", padx=5, pady=5)
-    select_and_save_movie_button.pack()
+    bottom_button_frame.pack(pady=10)
+    select_and_save_movie_button.pack(side="left", padx=5, pady=5)
+    rate_a_watched_movie_button.pack(side="left", padx=5, pady=5)
 
     return chosen_line
 
@@ -143,11 +147,53 @@ def select_and_save_movie():
     else:
         print("Canceled.")
 
+def rate_a_watched_movie():
+    with open(watched_file, 'r') as file:
+        lines = [line.strip() for line in file if line.strip()]
+
+    popup = tk.Toplevel(root)
+    popup.title("Rate a Watched Movie")
+    popup.geometry("800x800")
+
+    # --- Create a canvas with a scrollbar ---
+    popup_canvas = tk.Canvas(popup)
+    scrollbar = tk.Scrollbar(popup, orient="vertical", command=popup_canvas.yview)
+    scrollable_frame = tk.Frame(popup_canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: popup_canvas.configure(
+            scrollregion=popup_canvas.bbox("all")  # update scroll region to include new widgets
+        )
+    )
+
+    popup_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    popup_canvas.configure(yscrollcommand=scrollbar.set)
+
+    popup_canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
+   #Make the Buttons for each link
+    def on_select(line):
+        print(line)
+        popup = tk.Toplevel(root)
+        popup.title(f"Rate {line}")
+        popup.geometry("400x300")
+        #tk.Label(root, text="Select a number 1–5:").pack(pady=10)
+
+        combo = tk.Combobox(popup, values=[1, 2, 3, 4, 5], state="readonly")
+        combo.pack(pady=5)
+        combo.current(0) 
+        #Enter a new popup that will open up and do something, like you can choose stars, or write a review
+        #message_box = what do you rate this movie?
+
+    for line in lines:
+        button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
+        button.pack(fill="x")
+
 def run_movie_selection():
     auto_open = auto_open_var.get()
     choose_movie(auto_open)
-
-# And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 
 def open_popup_window_manual(movie_title, streaming_service_pairs):
     popup = tk.Toplevel(root)
@@ -178,7 +224,6 @@ def open_popup_window_manual(movie_title, streaming_service_pairs):
     for pair in streaming_service_pairs:
         button = tk.Button(scrollable_frame, text=pair[0], anchor="w", command=lambda link=pair[1]: on_select(link))
         button.pack(fill="x")
-
 
 def open_popup_window(file_to_open):
     with open(file_to_open, 'r') as file:
@@ -258,7 +303,7 @@ else:
 
     root = tk.Tk()
     root.title("Oscar Best Picture Nominated Selector")
-    window_width = 1200
+    window_width = 1500
     window_height = 800
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -371,8 +416,11 @@ else:
     )
     manual_find_streaming_places_button.pack_forget()
 
+    bottom_button_frame = tk.Frame(root, bg=background_color)
+    bottom_button_frame.pack_forget()
+
     select_and_save_movie_button = tk.Button(
-        root,
+        bottom_button_frame,
         text="Choose and Save Movie",
         command = lambda: select_and_save_movie(),
         bg="#03c94f",
@@ -383,5 +431,17 @@ else:
         pady=10      
     )
     select_and_save_movie_button.pack_forget()
+
+    rate_a_watched_movie_button = tk.Button(
+        bottom_button_frame,
+        text="Rate a Watched Movie",
+        command = lambda: rate_a_watched_movie(),
+        font=("Arial", 20, "bold"),
+        width=30,     
+        height=2,     
+        padx=10,      
+        pady=10 
+    )
+    rate_a_watched_movie_button.pack_forget()
 
     root.mainloop()
