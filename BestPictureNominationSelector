@@ -1,5 +1,6 @@
 import random
 import tkinter as tk
+from tkinter import ttk  
 from tkinter import messagebox
 import requests
 import webbrowser
@@ -173,19 +174,29 @@ def rate_a_watched_movie():
     popup_canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-   #Make the Buttons for each link
+   #Buttons with each movie to possibly rate
+   #Get the title only of the movie for the popup
+   #decide how we want to list the movies, order watched, date made, alphabetical?
+   #capture the rating, imbed it into the txt file somewhere
+   #have another new tag on the menu bar to list movies in rating order
+   
     def on_select(line):
         print(line)
         popup = tk.Toplevel(root)
         popup.title(f"Rate {line}")
-        popup.geometry("400x300")
-        #tk.Label(root, text="Select a number 1–5:").pack(pady=10)
+        popup.geometry("400x200")
+        tk.Label(popup, text=f"Rate {line} a number 1–5").pack(pady=10)
 
-        combo = tk.Combobox(popup, values=[1, 2, 3, 4, 5], state="readonly")
-        combo.pack(pady=5)
-        combo.current(0) 
-        #Enter a new popup that will open up and do something, like you can choose stars, or write a review
-        #message_box = what do you rate this movie?
+        combo_box = ttk.Combobox(popup, values=[1, 2, 3, 4, 5], state="readonly")
+        combo_box.pack(pady=5)
+        combo_box.current(0) 
+
+        def confirm():
+            rating_number_chosen = int(combo_box.get())
+            print(f"User chose: {rating_number_chosen}")
+            popup.destroy()
+
+        tk.Button(popup, text="OK", command=confirm).pack(pady=20)
 
     for line in lines:
         button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
