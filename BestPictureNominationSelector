@@ -174,7 +174,6 @@ def rate_a_watched_movie():
     popup_canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-   #Buttons with each movie to possibly rate
    #Get the title only of the movie for the popup
    #decide how we want to list the movies, order watched, date made, alphabetical?
    #capture the rating, imbed it into the txt file somewhere
@@ -193,16 +192,19 @@ def rate_a_watched_movie():
 
         def confirm(line):
             rating_number_chosen = int(combo_box.get())
-             #if 0 < rating_number_chosen < 6:
-                #line_with_rating = f"{line}\t{rating_number_chosen}"
-                #with open(watched_file, 'w') as file:
-                    #lines = [line.strip() for line in file if line.strip()]
-                    #for line_in_file in lines:
-                        #if line_in_file == line:
-                            #file.write(line_with_rating + '\n')
-                        #else:
-                            #file.write(line + '\n')
-            print(f"User chose: {rating_number_chosen}")
+            if 0 < rating_number_chosen < 6:
+                line_with_rating = f"{line}\t{rating_number_chosen}"
+                with open(watched_file, 'r') as file:
+                    lines = [line_in_file.strip() for line_in_file in file if line_in_file.strip()]
+
+                # Step 2: Rewrite file with modifications
+                with open(watched_file, 'w') as file:
+                    for single_line in lines:
+                        if single_line == line:
+                            file.write(line_with_rating + '\n')
+                        else:
+                            file.write(single_line + '\n')
+                print(f"User chose: {rating_number_chosen}")
             popup.destroy()
 
         tk.Button(popup, text="OK", command=lambda l=line: confirm(l)).pack(pady=20)
