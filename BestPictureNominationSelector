@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import requests
 import webbrowser
+import re
 
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 # Also consolidate those popup scrollable window functions (The same set up is currently in 3 different functions.)
@@ -148,6 +149,10 @@ def select_and_save_movie():
     else:
         print("Canceled.")
 
+def give_film_a_score(line, rating_number_chosen):
+    remove_score_line = re.sub(r'[\t ]*\d+$', '', line)
+    return f"{remove_score_line}\t{rating_number_chosen}"
+
 def rate_a_watched_movie():
     with open(watched_file, 'r') as file:
         lines = [line.strip() for line in file if line.strip()]
@@ -156,7 +161,6 @@ def rate_a_watched_movie():
     popup.title("Rate a Watched Movie")
     popup.geometry("800x800")
 
-    # --- Create a canvas with a scrollbar ---
     popup_canvas = tk.Canvas(popup)
     scrollbar = tk.Scrollbar(popup, orient="vertical", command=popup_canvas.yview)
     scrollable_frame = tk.Frame(popup_canvas)
@@ -193,11 +197,11 @@ def rate_a_watched_movie():
         def confirm(line):
             rating_number_chosen = int(combo_box.get())
             if 0 < rating_number_chosen < 6:
-                line_with_rating = f"{line}\t{rating_number_chosen}"
+                #line_with_rating = f"{line}\t{rating_number_chosen}"
+                line_with_rating = give_film_a_score(line, rating_number_chosen)
                 with open(watched_file, 'r') as file:
                     lines = [line_in_file.strip() for line_in_file in file if line_in_file.strip()]
 
-                # Step 2: Rewrite file with modifications
                 with open(watched_file, 'w') as file:
                     for single_line in lines:
                         if single_line == line:
