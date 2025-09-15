@@ -191,12 +191,21 @@ def rate_a_watched_movie():
         combo_box.pack(pady=5)
         combo_box.current(0) 
 
-        def confirm():
+        def confirm(line):
             rating_number_chosen = int(combo_box.get())
+             #if 0 < rating_number_chosen < 6:
+                #line_with_rating = f"{line}\t{rating_number_chosen}"
+                #with open(watched_file, 'w') as file:
+                    #lines = [line.strip() for line in file if line.strip()]
+                    #for line_in_file in lines:
+                        #if line_in_file == line:
+                            #file.write(line_with_rating + '\n')
+                        #else:
+                            #file.write(line + '\n')
             print(f"User chose: {rating_number_chosen}")
             popup.destroy()
 
-        tk.Button(popup, text="OK", command=confirm).pack(pady=20)
+        tk.Button(popup, text="OK", command=lambda l=line: confirm(l)).pack(pady=20)
 
     for line in lines:
         button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
