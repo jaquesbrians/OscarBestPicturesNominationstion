@@ -197,7 +197,6 @@ def rate_a_watched_movie():
         def confirm(line):
             rating_number_chosen = int(combo_box.get())
             if 0 < rating_number_chosen < 6:
-                #line_with_rating = f"{line}\t{rating_number_chosen}"
                 line_with_rating = give_film_a_score(line, rating_number_chosen)
                 with open(watched_file, 'r') as file:
                     lines = [line_in_file.strip() for line_in_file in file if line_in_file.strip()]
@@ -315,6 +314,9 @@ def debug_fix_corrupted_lists():
                         if nomination_line not in watched_lines:
                             full_unwatched_file.write(nomination_line + '\n')
 
+def change_color():
+    print("Change Color")
+
 def exit_app():
     root.quit()
 
@@ -338,25 +340,30 @@ else:
     root.geometry(f"{window_width}x{window_height}+{x}+{y}")
     root.configure(bg=background_color)
 
-    # Create the main menu bar
+    # Menu Bar
     menu_bar = tk.Menu(root)
     root.config(menu=menu_bar)
-
-    # ----- File Menu -----
-    file_menu = tk.Menu(menu_bar, tearoff=0)  # "tearoff=0" removes the dashed line
+    file_menu = tk.Menu(menu_bar, tearoff=0) 
     file_menu.add_command(label= "See Watched List", command= lambda:open_popup_window(watched_file))
     file_menu.add_command(label= "See UnWatched List", command= lambda:open_popup_window(not_watched_file))
     file_menu.add_separator()
-    file_menu.add_command(label="Reset Watched List", command=reset_watched_list)
-    file_menu.add_command(label="Reset UnWatched List", command=reset_unwatched_list)
-    file_menu.add_separator()
-    file_menu.add_command(label="Debug Fix Corrupted Lists", command=debug_fix_corrupted_lists)
+    file_menu.add_command(label="Rate a Watched Movie", command=rate_a_watched_movie)
     menu_bar.add_cascade(label="File", menu=file_menu)
 
-    exit_menu = tk.Menu(menu_bar)
+    edit_menu = tk.Menu(menu_bar, tearoff=0)
+    edit_menu.add_command(label="Reset Watched List", command=reset_watched_list)
+    edit_menu.add_command(label="Reset UnWatched List", command=reset_unwatched_list)
+    edit_menu.add_separator()
+    edit_menu.add_command(label="Debug Fix Corrupted Lists", command=debug_fix_corrupted_lists)
+    menu_bar.add_cascade(label="Edit", menu=edit_menu)
+
+    display_menu = tk.Menu(menu_bar)
+    display_menu.add_command(label="Change Color", command=change_color)
+    menu_bar.add_cascade(label="Display", menu=display_menu)
+
+    exit_menu = tk.Menu(menu_bar, tearoff=0)
     exit_menu.add_command(label="Exit", command=exit_app)
     menu_bar.add_cascade(label="Exit", menu=exit_menu)
-
 
     tk.Label(
         root, 
