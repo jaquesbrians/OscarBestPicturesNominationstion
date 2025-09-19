@@ -5,6 +5,8 @@ from tkinter import messagebox
 import requests
 import webbrowser
 import re
+from PIL import Image, ImageTk
+import colorsys, math
 
 # And then also, code wise, figure out a way to actually start splitting up this UI from logic into 2 different py files.
 # Also consolidate those popup scrollable window functions (The same set up is currently in 3 different functions.)
@@ -19,6 +21,7 @@ service_link_options_file = 'ManualServiceLinkOptionsList.txt'
 movie_title = None
 chosen_line = None
 keep_checking_countries = True
+background_color = None
 
 other_countries_to_try = ["us", "gb", "ca", "au", "fr", "de", "jp"]
 countries_to_try_dictionary = {
@@ -315,7 +318,50 @@ def debug_fix_corrupted_lists():
                             full_unwatched_file.write(nomination_line + '\n')
 
 def change_color():
-    print("Change Color")
+    size = 300
+    image = Image.new("RGB", (size, size))
+    center = size // 2
+    radius = size // 2
+    
+    for y in range(size):
+        for x in range(size):
+            dx, dy = x - center, y - center
+            distance = math.sqrt(dx*dx + dy*dy)
+            if distance <= radius:
+                angle = (math.atan2(dy, dx) + math.pi) / (2 * math.pi)  # Hue
+                saturation = distance / radius  # Saturation
+                r, g, b = colorsys.hsv_to_rgb(angle, saturation, 1)
+                image.putpixel((x, y), (int(r*255), int(g*255), int(b*255)))
+            else:
+                image.putpixel((x, y), (255, 255, 255))  # Outside wheel = white
+    
+    wheel = ImageTk.PhotoImage(image)
+
+    popup = tk.Toplevel(root)
+    popup.title("Color Wheel")
+    popup.geometry(f"{size}x{size+50}")
+
+    canvas = tk.Canvas(popup, width=size, height=size, highlightthickness=0)
+    canvas.pack(pady=10)
+    canvas.create_image(0, 0, anchor="nw", image=wheel)
+
+    def on_click(event):
+        x, y = event.x, event.y
+        if 0 <= x < size and 0 <= y < size:
+            rgb = image.getpixel((x, y))
+            hex_color = f"#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}"
+            color_label.config(text=f"Selected: {rgb} | {hex_color}")
+            global background_color
+            background_color = hex_color
+            swatch.config(bg=hex_color)
+
+    canvas.bind("<Button-1>", on_click) 
+
+    color_label = tk.Label(popup, text="Click the wheel to choose a color")
+    color_label.pack(pady=5)
+
+    swatch = tk.Label(popup, width=20, height=2, bg="white", relief="solid", borderwidth=1)
+    swatch.pack(pady=5)
 
 def exit_app():
     root.quit()
@@ -478,3 +524,8 @@ else:
     rate_a_watched_movie_button.pack_forget()
 
     root.mainloop()
+
+
+
+
+
