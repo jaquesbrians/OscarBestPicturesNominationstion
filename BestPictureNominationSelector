@@ -333,7 +333,7 @@ def change_color():
                 r, g, b = colorsys.hsv_to_rgb(angle, saturation, 1)
                 image.putpixel((x, y), (int(r*255), int(g*255), int(b*255)))
             else:
-                image.putpixel((x, y), (255, 255, 255))  # Outside wheel = white
+                image.putpixel((x, y), (128, 128, 128))  # Outside wheel = white
     
     wheel = ImageTk.PhotoImage(image)
 
@@ -345,14 +345,22 @@ def change_color():
     canvas.pack(pady=10)
     canvas.create_image(0, 0, anchor="nw", image=wheel)
 
+    canvas.image = wheel
+
     def on_click(event):
         x, y = event.x, event.y
         if 0 <= x < size and 0 <= y < size:
             rgb = image.getpixel((x, y))
             hex_color = f"#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}"
             color_label.config(text=f"Selected: {rgb} | {hex_color}")
-            global background_color
             background_color = hex_color
+            root.configure(bg=background_color)
+            main_label.configure(bg=background_color)
+            movie_selected_title.configure(bg=background_color)
+            movie_selected_year_made.configure(bg=background_color)
+            movie_selected_producer.configure(bg=background_color)
+            top_button_frame.configure(bg=background_color)
+            bottom_button_frame.configure(bg=background_color)
             swatch.config(bg=hex_color)
 
     canvas.bind("<Button-1>", on_click) 
@@ -411,12 +419,13 @@ else:
     exit_menu.add_command(label="Exit", command=exit_app)
     menu_bar.add_cascade(label="Exit", menu=exit_menu)
 
-    tk.Label(
+    main_label = tk.Label(
         root, 
         text="Randomly Find Best Picture Nominated Movie",
         bg=background_color,
         font=("Arial", 20, "bold") 
-        ).pack(pady=10)
+        )
+    main_label.pack(pady=10)
     
     auto_open_var = tk.BooleanVar()
 
