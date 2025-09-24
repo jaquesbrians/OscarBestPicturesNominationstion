@@ -289,6 +289,51 @@ def open_popup_window(file_to_open):
         button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
         button.pack(fill="x")
 
+def open_popup_window_sort(file_to_open):
+
+    with open(file_to_open, 'r') as file:
+        lines = [line.strip() for line in file if line.strip()]
+
+    popup = tk.Toplevel(root)
+    popup.title("Select a Watched Movie")
+    popup.geometry("800x800")
+
+    # --- Create a canvas with a scrollbar ---
+    popup_canvas = tk.Canvas(popup)
+    scrollbar = tk.Scrollbar(popup, orient="vertical", command=popup_canvas.yview)
+    scrollable_frame = tk.Frame(popup_canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: popup_canvas.configure(
+            scrollregion=popup_canvas.bbox("all")  # update scroll region to include new widgets
+        )
+    )
+
+    popup_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    popup_canvas.configure(yscrollcommand=scrollbar.set)
+
+    popup_canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
+    def on_selct_alphabetically(lines):
+        sorted_lines = sorted(lines)
+        print("alphabetically")
+
+    def on_select(line):
+        manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
+        manual_select_movie_title = manual_select_movie_info_line[0]
+        cycle_through_countries_for_movie(manual_select_movie_title)
+
+    sort_alphabetically_button = tk.Button(scrollable_frame, text="Sort Alphabetically", anchor="w", command=lambda i=lines: on_selct_alphabetically(i))
+    sort_alphabetically_button.pack(fill="x")
+
+
+    for line in lines:
+        button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
+        button.pack(fill="x")
+
+
 def reset_watched_list():
     message_box_result = messagebox.askyesno("Reset Watched List", "Selecting 'YES' will erase all movies in Watched List?")
     if message_box_result:
@@ -403,6 +448,12 @@ else:
     file_menu.add_separator()
     file_menu.add_command(label="Rate a Watched Movie", command=rate_a_watched_movie)
     menu_bar.add_cascade(label="File", menu=file_menu)
+
+    sort_menu = tk.Menu(menu_bar, tearoff=0)
+    sort_menu.add_command(label = "Watched List", command= lambda:open_popup_window_sort(watched_file))
+    sort_menu.add_command(label = "Not Watched List", command= lambda:open_popup_window_sort(not_watched_file))
+    sort_menu.add_command(label = "All Movies List", command= lambda:open_popup_window_sort(nominations_full_list_file))
+    menu_bar.add_cascade(label="Sort", menu=sort_menu)
 
     edit_menu = tk.Menu(menu_bar, tearoff=0)
     edit_menu.add_command(label="Reset Watched List", command=reset_watched_list)
