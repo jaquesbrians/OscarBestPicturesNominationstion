@@ -316,22 +316,43 @@ def open_popup_window_sort(file_to_open):
     popup_canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-    def on_selct_alphabetically(lines):
+    def on_select_alphabetically(lines):
         sorted_lines = sorted(lines)
-        print("alphabetically")
+        for line in sorted_lines:
+            button = tk.Button(scrollable_frame, text=line, anchor="w")
+            button.pack(fill="x")
+            print("alphabetically")
 
-    def on_select(line):
-        manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
-        manual_select_movie_title = manual_select_movie_info_line[0]
-        cycle_through_countries_for_movie(manual_select_movie_title)
 
-    sort_alphabetically_button = tk.Button(scrollable_frame, text="Sort Alphabetically", anchor="w", command=lambda i=lines: on_selct_alphabetically(i))
+    year_pattern = re.compile(r"\b\d{4}\b")
+    def get_second_year(s):
+        years = year_pattern.findall(s)
+        return int(years[1]) if len(years) > 1 else int(years[0])  
+
+
+    def on_select_year(lines):
+        lines.sort(key=get_second_year)
+        for line in lines:
+            button = tk.Button(scrollable_frame, text=line, anchor="w")
+            button.pack(fill="x")
+            print("alphabetically")
+
+
+    #def on_select(line):
+        #manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
+        #manual_select_movie_title = manual_select_movie_info_line[0]
+        #cycle_through_countries_for_movie(manual_select_movie_title)
+
+    sort_alphabetically_button = tk.Button(scrollable_frame, text="Sort Alphabetically", anchor="w", command=lambda i=lines: on_select_alphabetically(i))
     sort_alphabetically_button.pack(fill="x")
 
+    sort_year_button = tk.Button(scrollable_frame, text="Sort By Year", anchor="w", command=lambda i=lines: on_select_year(i))
+    sort_year_button.pack(fill="x")
 
-    for line in lines:
-        button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
-        button.pack(fill="x")
+
+    #for line in lines:
+        #button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
+        #button.pack(fill="x")
 
 
 def reset_watched_list():
