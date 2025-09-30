@@ -283,7 +283,7 @@ def open_popup_window(file_to_open):
     def on_select(line):
         manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
         manual_select_movie_title = manual_select_movie_info_line[0]
-        cycle_through_countries_for_movie(manual_select_movie_title)
+        cycle_through_countries_for_movie(manual_select_movie_title, True)
 
     for line in lines:
         button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
@@ -316,6 +316,11 @@ def open_popup_window_sort(file_to_open):
     popup_canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
+    def on_select(line):
+        manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
+        manual_select_movie_title = manual_select_movie_info_line[0]
+        cycle_through_countries_for_movie(manual_select_movie_title, True)
+
     current_list_of_buttons = []
 
     def on_select_alphabetically(lines):
@@ -324,13 +329,13 @@ def open_popup_window_sort(file_to_open):
         current_list_of_buttons.clear()
         sorted_lines = sorted(lines)
         for line in sorted_lines:
-            button = tk.Button(scrollable_frame, text=line, anchor="w")
+            button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
             button.pack(fill="x")
             current_list_of_buttons.append(button)
 
     year_pattern = re.compile(r"\b\d{4}\b")
-    def get_second_year(s):
-        years = year_pattern.findall(s)
+    def get_year_made(year_made):
+        years = year_pattern.findall(year_made)
         return int(years[1]) if len(years) > 1 else int(years[0])  
 
 
@@ -338,22 +343,29 @@ def open_popup_window_sort(file_to_open):
         for button in current_list_of_buttons:
             button.pack_forget()
         current_list_of_buttons.clear()
-        lines.sort(key=get_second_year)
+        lines.sort(key=get_year_made)
         for line in lines:
-            button = tk.Button(scrollable_frame, text=line, anchor="w")
+            button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
             button.pack(fill="x")
             current_list_of_buttons.append(button)
+
+    rating_pattern = re.compile(r"(\d+)\s*$")
+    def get_rating(rating):
+        ratings = rating_pattern.findall(rating)
+        if ratings:
+            return int(ratings[0]) 
+        else:
+            return int(6)
 
     def on_select_rating(lines):
         for button in current_list_of_buttons:
             button.pack_forget()
         current_list_of_buttons.clear()
-        print(lines)
-
-    #def on_select(line):
-        #manual_select_movie_info_line = [part for part in line.split('\t') if part.strip() != '']
-        #manual_select_movie_title = manual_select_movie_info_line[0]
-        #cycle_through_countries_for_movie(manual_select_movie_title)
+        lines.sort(key=get_rating)
+        for line in lines:
+            button = tk.Button(scrollable_frame, text=line, anchor="w", command=lambda i=line: on_select(i))
+            button.pack(fill="x")
+            current_list_of_buttons.append(button)
 
     sort_buttons_frame = tk.Frame(scrollable_frame)
     sort_buttons_frame.pack(pady=10)
